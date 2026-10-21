@@ -50,7 +50,7 @@ docker compose config
 cp .env.example .env
 # заполните APP_DOMAIN, ACME_EMAIL, BOT_TOKEN, MINI_APP_URL,
 # ALLOWED_ORIGIN, SESSION_SECRET и BOT_WEBHOOK_SECRET
-docker compose -f docker-compose.caddy.yml up -d --build
+docker compose -f docker-compose.yml up -d --build
 ```
 
 После запуска задайте в BotFather URL Mini App `https://<APP_DOMAIN>` и настройте Telegram webhook на `https://<APP_DOMAIN>/telegram/webhook` с `BOT_WEBHOOK_SECRET`. SQLite хранится в Docker volume `pool_data` и не публикуется.
