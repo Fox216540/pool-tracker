@@ -1,7 +1,6 @@
 .git
 .idea
 .cache
-data
 backups
 .env
 frontend/node_modules
