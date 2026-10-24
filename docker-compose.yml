@@ -16,30 +16,21 @@ services:
       timeout: 5s
       retries: 3
 
-  web:
+  caddy:
     build:
       context: .
       target: web
-    depends_on:
-      api:
-        condition: service_healthy
-    restart: unless-stopped
-
-  caddy:
-    image: caddy:2.8-alpine
     env_file: .env
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"
     volumes:
-      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
       api:
         condition: service_healthy
-      web:
-        condition: service_started
     restart: unless-stopped
 
 volumes:
