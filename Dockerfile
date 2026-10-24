@@ -1,9 +1,12 @@
+# syntax=docker/dockerfile:1.7
 FROM golang:1.26-bookworm AS backend-build
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=1 go build -o /pool-tracker ./cmd/api
+RUN --mount=type=cache,target=/root/.cache/go-build \
+    --mount=type=cache,target=/go/pkg/mod \
+    CGO_ENABLED=1 go build -o /pool-tracker ./cmd/api
 
 FROM node:20-bookworm-slim AS frontend-build
 WORKDIR /src/frontend
