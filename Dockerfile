@@ -24,6 +24,6 @@ USER app
 EXPOSE 8080
 ENTRYPOINT ["/app/pool-tracker"]
 
-FROM nginx:1.27-alpine AS web
-COPY --from=frontend-build /src/frontend/dist /usr/share/nginx/html
-COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf
+FROM caddy:2.8-alpine AS web
+COPY --from=frontend-build /src/frontend/dist /srv
+COPY deploy/caddy/Caddyfile /etc/caddy/Caddyfile
